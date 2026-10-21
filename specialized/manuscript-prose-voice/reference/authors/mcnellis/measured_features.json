@@ -1,0 +1,711 @@
+{
+ "corpus": {
+  "docs": [
+   "McNellis et al. 2021 Ecosphere 12(5):e03419",
+   "McNellis et al. 2023 Environ. Res. Lett. 18:034034"
+  ],
+  "paragraphs": 73,
+  "sentences": 384,
+  "words": 10221,
+  "excluded": "captions, tables, table footnotes, equations, headings, front matter, acknowledgements, data-availability, references; 31 sentences dropped by verbatim n-gram check (skewed toward symbol-heavy numeric sentences)",
+  "note_correction": "Four paragraphs from the Ecosphere 'Methodological caveats and considerations' subsection (p19) were initially filed as Methods; they sit inside the Discussion and have been reassigned against the heading page boundaries."
+ },
+ "sentence_length": {
+  "introduction": {
+   "n": 36,
+   "mean": 31.2,
+   "median": 31.0,
+   "sd": 10.0,
+   "p10": 18,
+   "p25": 25,
+   "p75": 38,
+   "p90": 42,
+   "min": 6,
+   "max": 50,
+   "pct_over_35": 36.1,
+   "pct_under_15": 5.6
+  },
+  "methods": {
+   "n": 143,
+   "mean": 25.1,
+   "median": 23,
+   "sd": 11.4,
+   "p10": 12,
+   "p25": 17,
+   "p75": 30,
+   "p90": 38,
+   "min": 6,
+   "max": 68,
+   "pct_over_35": 14.7,
+   "pct_under_15": 13.3
+  },
+  "results": {
+   "n": 66,
+   "mean": 21.7,
+   "median": 21.5,
+   "sd": 8.0,
+   "p10": 12,
+   "p25": 16,
+   "p75": 26,
+   "p90": 32,
+   "min": 3,
+   "max": 41,
+   "pct_over_35": 6.1,
+   "pct_under_15": 18.2
+  },
+  "discussion": {
+   "n": 131,
+   "mean": 29.7,
+   "median": 29,
+   "sd": 10.4,
+   "p10": 18,
+   "p25": 22,
+   "p75": 35,
+   "p90": 43,
+   "min": 8,
+   "max": 68,
+   "pct_over_35": 22.9,
+   "pct_under_15": 3.8
+  },
+  "conclusions": {
+   "n": 8,
+   "mean": 24,
+   "median": 22.5,
+   "sd": 6.8,
+   "p10": 14,
+   "p25": 20,
+   "p75": 25,
+   "p90": 28,
+   "min": 14,
+   "max": 39,
+   "pct_over_35": 12.5,
+   "pct_under_15": 12.5
+  },
+  "all": {
+   "n": 384,
+   "mean": 26.6,
+   "median": 25.0,
+   "sd": 10.8,
+   "p10": 14,
+   "p25": 19,
+   "p75": 32,
+   "p90": 40,
+   "min": 3,
+   "max": 68,
+   "pct_over_35": 18.0,
+   "pct_under_15": 10.2
+  }
+ },
+ "voice": {
+  "introduction": {
+   "pct_with_passive": 13.9,
+   "pct_we_subject": 5.6,
+   "pct_any_first_person": 13.9
+  },
+  "methods": {
+   "pct_with_passive": 43.4,
+   "pct_we_subject": 9.8,
+   "pct_any_first_person": 28.0
+  },
+  "results": {
+   "pct_with_passive": 24.2,
+   "pct_we_subject": 0.0,
+   "pct_any_first_person": 1.5
+  },
+  "discussion": {
+   "pct_with_passive": 19.1,
+   "pct_we_subject": 13.7,
+   "pct_any_first_person": 39.7
+  },
+  "conclusions": {
+   "pct_with_passive": 25.0,
+   "pct_we_subject": 0.0,
+   "pct_any_first_person": 12.5
+  },
+  "all": {
+   "pct_with_passive": 28.6,
+   "pct_we_subject": 8.9,
+   "pct_any_first_person": 25.8
+  }
+ },
+ "punctuation": {
+  "introduction": {
+   "pct_semicolon": 5.6,
+   "pct_em_or_en_dash": 0.0,
+   "pct_colon": 0.0,
+   "pct_parenthetical": 69.4,
+   "pct_leading_subordinate": 8.3,
+   "pct_opens_with_adverbial_comma": 25.0,
+   "mean_commas": 1.72
+  },
+  "methods": {
+   "pct_semicolon": 7.7,
+   "pct_em_or_en_dash": 0.0,
+   "pct_colon": 3.5,
+   "pct_parenthetical": 54.5,
+   "pct_leading_subordinate": 3.5,
+   "pct_opens_with_adverbial_comma": 16.1,
+   "mean_commas": 1.26
+  },
+  "results": {
+   "pct_semicolon": 4.5,
+   "pct_em_or_en_dash": 0.0,
+   "pct_colon": 3.0,
+   "pct_parenthetical": 54.5,
+   "pct_leading_subordinate": 1.5,
+   "pct_opens_with_adverbial_comma": 12.1,
+   "mean_commas": 1.24
+  },
+  "discussion": {
+   "pct_semicolon": 6.1,
+   "pct_em_or_en_dash": 0.8,
+   "pct_colon": 1.5,
+   "pct_parenthetical": 61.8,
+   "pct_leading_subordinate": 3.8,
+   "pct_opens_with_adverbial_comma": 32.8,
+   "mean_commas": 1.51
+  },
+  "conclusions": {
+   "pct_semicolon": 0.0,
+   "pct_em_or_en_dash": 0.0,
+   "pct_colon": 0.0,
+   "pct_parenthetical": 12.5,
+   "pct_leading_subordinate": 12.5,
+   "pct_opens_with_adverbial_comma": 0.0,
+   "mean_commas": 1.5
+  },
+  "all": {
+   "pct_semicolon": 6.2,
+   "pct_em_or_en_dash": 0.3,
+   "pct_colon": 2.3,
+   "pct_parenthetical": 57.6,
+   "pct_leading_subordinate": 3.9,
+   "pct_opens_with_adverbial_comma": 21.6,
+   "mean_commas": 1.39
+  }
+ },
+ "citations": {
+  "introduction": {
+   "pct_sent_with_paren_cite": 61.1,
+   "pct_sent_with_narrative_cite": 2.8,
+   "mean_sources_per_paren": 2.3,
+   "max_sources_per_paren": 7,
+   "pct_paren_multi_source": 65.2
+  },
+  "methods": {
+   "pct_sent_with_paren_cite": 36.4,
+   "pct_sent_with_narrative_cite": 1.4,
+   "mean_sources_per_paren": 1.6,
+   "max_sources_per_paren": 7,
+   "pct_paren_multi_source": 34.5
+  },
+  "results": {
+   "pct_sent_with_paren_cite": 0.0,
+   "pct_sent_with_narrative_cite": 0.0,
+   "mean_sources_per_paren": 0,
+   "max_sources_per_paren": 0,
+   "pct_paren_multi_source": 0.0
+  },
+  "discussion": {
+   "pct_sent_with_paren_cite": 49.6,
+   "pct_sent_with_narrative_cite": 3.1,
+   "mean_sources_per_paren": 1.68,
+   "max_sources_per_paren": 7,
+   "pct_paren_multi_source": 36.4
+  },
+  "conclusions": {
+   "pct_sent_with_paren_cite": 0.0,
+   "pct_sent_with_narrative_cite": 0.0,
+   "mean_sources_per_paren": 0,
+   "max_sources_per_paren": 0,
+   "pct_paren_multi_source": 0.0
+  },
+  "all": {
+   "pct_sent_with_paren_cite": 36.2,
+   "pct_sent_with_narrative_cite": 1.8,
+   "mean_sources_per_paren": 1.75,
+   "max_sources_per_paren": 7,
+   "pct_paren_multi_source": 40.3
+  }
+ },
+ "numeric": {
+  "introduction": {
+   "pct_with_number": 16.7,
+   "pct_with_percent": 2.8,
+   "pct_figure_or_table_ref": 0.0,
+   "pct_value_in_parens": 2.8,
+   "pct_units": 0.0
+  },
+  "methods": {
+   "pct_with_number": 39.2,
+   "pct_with_percent": 6.3,
+   "pct_figure_or_table_ref": 2.8,
+   "pct_value_in_parens": 10.5,
+   "pct_units": 6.3
+  },
+  "results": {
+   "pct_with_number": 60.6,
+   "pct_with_percent": 28.8,
+   "pct_figure_or_table_ref": 28.8,
+   "pct_value_in_parens": 45.5,
+   "pct_units": 6.1
+  },
+  "discussion": {
+   "pct_with_number": 19.8,
+   "pct_with_percent": 5.3,
+   "pct_figure_or_table_ref": 8.4,
+   "pct_value_in_parens": 9.9,
+   "pct_units": 5.3
+  },
+  "conclusions": {
+   "pct_with_number": 0.0,
+   "pct_with_percent": 0.0,
+   "pct_figure_or_table_ref": 0.0,
+   "pct_value_in_parens": 0.0,
+   "pct_units": 0.0
+  },
+  "all": {
+   "pct_with_number": 33.3,
+   "pct_with_percent": 9.4,
+   "pct_figure_or_table_ref": 8.9,
+   "pct_value_in_parens": 15.4,
+   "pct_units": 5.2
+  }
+ },
+ "hedges": {
+  "may": 59,
+  "could": 1,
+  "likely": 10,
+  "unlikely": 2,
+  "probably": 3,
+  "appear": 1,
+  "suggest": 3,
+  "suggests": 10,
+  "suggested": 5,
+  "seem": 1,
+  "indicate": 3,
+  "indicates": 2,
+  "potential": 5,
+  "potentially": 1,
+  "apparently": 1,
+  "generally": 10,
+  "largely": 3,
+  "relatively": 2,
+  "somewhat": 4,
+  "tend": 2,
+  "assumed": 2,
+  "assuming": 1,
+  "can be": 4
+ },
+ "markers_initial_vs_internal": {
+  "but": {
+   "total": 28,
+   "sentence_initial": 0,
+   "internal": 28
+  },
+  "while": {
+   "total": 24,
+   "sentence_initial": 13,
+   "internal": 11
+  },
+  "overall": {
+   "total": 19,
+   "sentence_initial": 4,
+   "internal": 15
+  },
+  "due to": {
+   "total": 17,
+   "sentence_initial": 1,
+   "internal": 16
+  },
+  "further": {
+   "total": 13,
+   "sentence_initial": 2,
+   "internal": 11
+  },
+  "although": {
+   "total": 12,
+   "sentence_initial": 2,
+   "internal": 10
+  },
+  "also": {
+   "total": 11,
+   "sentence_initial": 0,
+   "internal": 11
+  },
+  "nonetheless": {
+   "total": 8,
+   "sentence_initial": 6,
+   "internal": 2
+  },
+  "despite": {
+   "total": 6,
+   "sentence_initial": 2,
+   "internal": 4
+  },
+  "because": {
+   "total": 6,
+   "sentence_initial": 1,
+   "internal": 5
+  },
+  "specifically": {
+   "total": 5,
+   "sentence_initial": 3,
+   "internal": 2
+  },
+  "however": {
+   "total": 4,
+   "sentence_initial": 3,
+   "internal": 1
+  },
+  "therefore": {
+   "total": 4,
+   "sentence_initial": 1,
+   "internal": 3
+  },
+  "additionally": {
+   "total": 4,
+   "sentence_initial": 4,
+   "internal": 0
+  },
+  "in contrast": {
+   "total": 2,
+   "sentence_initial": 1,
+   "internal": 1
+  },
+  "furthermore": {
+   "total": 2,
+   "sentence_initial": 2,
+   "internal": 0
+  },
+  "notably": {
+   "total": 2,
+   "sentence_initial": 2,
+   "internal": 0
+  },
+  "importantly": {
+   "total": 2,
+   "sentence_initial": 2,
+   "internal": 0
+  },
+  "conversely": {
+   "total": 1,
+   "sentence_initial": 1,
+   "internal": 0
+  }
+ },
+ "paragraphs": {
+  "introduction": {
+   "n": 8,
+   "mean_sentences": 4.5,
+   "mean_words": 141
+  },
+  "methods": {
+   "n": 28,
+   "mean_sentences": 5.1,
+   "mean_words": 128
+  },
+  "results": {
+   "n": 12,
+   "mean_sentences": 5.5,
+   "mean_words": 119
+  },
+  "discussion": {
+   "n": 23,
+   "mean_sentences": 5.7,
+   "mean_words": 169
+  },
+  "conclusions": {
+   "n": 2,
+   "mean_sentences": 4,
+   "mean_words": 96
+  }
+ },
+ "discussion_closers": {
+  "paragraphs": 23,
+  "forward_looking": 10,
+  "hedged": 13
+ },
+ "may_by_section": {
+  "introduction": 1,
+  "methods": 2,
+  "results": 0,
+  "discussion": 56,
+  "conclusions": 0
+ },
+ "organization": {
+  "headings": {
+   "eco2021": {
+    "methods": [
+     "Experimental design, climate, and soil data",
+     "Study area and initial plot composition",
+     "Random Forest model building",
+     "Other comparisons between groups"
+    ],
+    "results": [
+     "Recent mortality rates and model performance",
+     "Agent mortality and model performance",
+     "Tree mortality across the western USA under future climates"
+    ],
+    "discussion": [
+     "Factors most important to recent and future forest mortality",
+     "Other factors driving recent tree mortality and mortality agents across the western USA",
+     "Implications for future work examining forest mortality",
+     "Methodological caveats and considerations"
+    ]
+   },
+   "erl2023": {
+    "methods": [
+     "2.1 Study system",
+     "2.2 Land cover responses",
+     "2.3 Explanatory variables of interest",
+     "2.4 Counterfactual analysis",
+     "2.5 Landscape response to livestock removal",
+     "2.6 Model building"
+    ],
+    "results": [
+     "3.1 Regression model evaluation",
+     "3.2 Landscape response to soil geomorphic setting",
+     "3.3 Impacts of past grazing intensity",
+     "3.4 Interactions between soils, years since intervention, and past grazing intensity"
+    ],
+    "discussion": []
+   }
+  },
+  "results_to_methods": {
+   "eco2021": {
+    "RESU1": "METH10",
+    "RESU2": "METH12",
+    "RESU3": "METH13",
+    "RESU4": "METH5",
+    "RESU5": "METH15"
+   },
+   "erl2023": {
+    "RESU1": "METH9",
+    "RESU2": "METH3",
+    "RESU3": "METH3",
+    "RESU4": "METH4",
+    "RESU5": "METH4",
+    "RESU6": "METH6",
+    "RESU7": "METH4"
+   }
+  },
+  "discussion_links": {
+   "eco2021": {
+    "DISC1": {
+     "results": "RESU1",
+     "intro": "INTR1"
+    },
+    "DISC2": {
+     "results": "RESU5",
+     "intro": "INTR3"
+    },
+    "DISC3": {
+     "results": "RESU4",
+     "intro": "INTR2"
+    },
+    "DISC4": {
+     "results": "RESU5",
+     "intro": "INTR3"
+    },
+    "DISC5": {
+     "results": "RESU4",
+     "intro": "INTR3"
+    },
+    "DISC6": {
+     "results": "RESU3",
+     "intro": "INTR3"
+    },
+    "DISC7": {
+     "results": "RESU5",
+     "intro": "INTR3"
+    },
+    "DISC8": {
+     "results": "RESU3",
+     "intro": "INTR3"
+    },
+    "DISC9": {
+     "results": "RESU3",
+     "intro": "INTR3"
+    },
+    "DISC10": {
+     "results": "RESU3",
+     "intro": "INTR3"
+    },
+    "DISC11": {
+     "results": "RESU3",
+     "intro": "INTR3"
+    },
+    "DISC12": {
+     "results": "RESU3",
+     "intro": "INTR3"
+    },
+    "DISC13": {
+     "results": "RESU5",
+     "intro": "INTR2"
+    },
+    "DISC14": {
+     "results": null,
+     "intro": "INTR4"
+    },
+    "DISC15": {
+     "results": null,
+     "intro": "INTR4"
+    },
+    "DISC16": {
+     "results": "RESU4",
+     "intro": "INTR4"
+    },
+    "DISC17": {
+     "results": null,
+     "intro": "INTR3"
+    }
+   },
+   "erl2023": {
+    "DISC1": {
+     "results": null,
+     "intro": "INTR1"
+    },
+    "DISC2": {
+     "results": "RESU2",
+     "intro": "INTR3"
+    },
+    "DISC3": {
+     "results": "RESU4",
+     "intro": "INTR1"
+    },
+    "DISC4": {
+     "results": "RESU2",
+     "intro": "INTR2"
+    },
+    "DISC5": {
+     "results": "RESU6",
+     "intro": "INTR1"
+    },
+    "DISC6": {
+     "results": "RESU1",
+     "intro": "INTR2"
+    }
+   }
+  },
+  "topics": {
+   "eco2021": {
+    "INTR1": "Significance of tree mortality",
+    "INTR2": "Gap in empirical mortality prediction",
+    "INTR3": "Causes of tree mortality",
+    "INTR4": "FIA inventory program overview",
+    "INTR5": "Research questions and hypotheses",
+    "METH1": "FIA plot grid establishment",
+    "METH2": "Tree and stand variables",
+    "METH3": "Ecological section codes",
+    "METH4": "Tree-level analysis criteria",
+    "METH5": "Mortality agent classification codes",
+    "METH6": "Animal mortality grouping",
+    "METH7": "Downscaled climate data source",
+    "METH8": "Climate variable calculation formula",
+    "METH9": "Climate variable averaging period",
+    "METH10": "Tree and plot sample sizes",
+    "METH11": "Random Forest model construction",
+    "METH12": "Model cross-validation approach",
+    "METH13": "Variable importance assessment method",
+    "METH14": "Model variables and units",
+    "METH15": "Future mortality projection method",
+    "METH16": "Mann-Whitney statistical tests",
+    "METH17": "Rationale for data timeframe",
+    "METH18": "Coordinate fuzzing error source",
+    "METH19": "Mortality agent data limitations",
+    "METH20": "Excluding harvest and fire mortality",
+    "RESU1": "Mortality variation across ecosystems",
+    "RESU2": "Model prediction accuracy results",
+    "RESU3": "Variable importance contributions",
+    "RESU4": "Recent mortality rates by agent",
+    "RESU5": "Future species-specific mortality rates",
+    "DISC1": "Overview of mortality drivers",
+    "DISC2": "Future mortality acceleration",
+    "DISC3": "Species mortality rate novelty",
+    "DISC4": "Aspen decline literature",
+    "DISC5": "Comparing mortality rates to literature",
+    "DISC6": "Climate-resilient species",
+    "DISC7": "Juniper mortality robustness",
+    "DISC8": "Tree diameter importance",
+    "DISC9": "Ecological section importance",
+    "DISC10": "Winter temperature variables",
+    "DISC11": "Snowpack and frost link",
+    "DISC12": "Belowground competition effects",
+    "DISC13": "Species-level model parameterization",
+    "DISC14": "FIA data timeframe choice",
+    "DISC15": "Plot coordinate fuzzing error",
+    "DISC16": "Mortality agent data limitations",
+    "DISC17": "Excluding harvest and fire"
+   },
+   "erl2023": {
+    "INTR1": "livestock grazing in drylands",
+    "INTR2": "new data/analytical frameworks",
+    "INTR3": "study goal: land cover change",
+    "METH1": "study system description",
+    "METH2": "land cover remote sensing metrics",
+    "METH3": "explanatory variable construction",
+    "METH4": "cost-distance to water surrogate",
+    "METH5": "counterfactual analysis background",
+    "METH6": "years since intervention modeling",
+    "METH7": "data under-sampling procedure",
+    "METH8": "model hypothesis: climate/soils only",
+    "METH9": "Bayesian model fitting details",
+    "METH10": "CDW mapping methodology",
+    "METH11": "counterfactual analysis 3-step process",
+    "METH12": "reference pixel selection method",
+    "RESU1": "model convergence diagnostics",
+    "RESU2": "climate covariate coefficient estimates",
+    "RESU3": "soil geomorphic unit associations",
+    "RESU4": "CDW intercept significance",
+    "RESU5": "fSCA slopes across CDW",
+    "RESU6": "SGU by YSI interaction",
+    "RESU7": "SGU by CDW interaction",
+    "DISC1": "grazing as complex disturbance",
+    "DISC2": "livestock removal cover increase",
+    "DISC3": "grazing intensity and resilience",
+    "DISC4": "modest climate effects",
+    "DISC5": "soil system complexity",
+    "DISC6": "novel synthetic control approach"
+   }
+  },
+  "rank_correlations": {
+   "eco2021_results_vs_methods": [
+    0.4,
+    5,
+    0.505
+   ],
+   "erl2023_results_vs_methods": [
+    0.09,
+    7,
+    0.842
+   ],
+   "erl2023_results_vs_methods_excl_model_check": [
+    0.8,
+    6,
+    0.055
+   ],
+   "eco2021_discussion_vs_results": [
+    -0.05,
+    17,
+    0.856
+   ],
+   "erl2023_discussion_vs_results": [
+    -0.21,
+    5,
+    0.741
+   ]
+  },
+  "note": "results_to_methods and discussion_links are model-judged subject-matter correspondences, softer evidence than the heading trees and the sentence-level measurements.",
+  "discussion_intro_coverage": {
+   "eco2021": [
+    17,
+    17
+   ],
+   "erl2023": [
+    6,
+    6
+   ]
+  }
+ }
+}
