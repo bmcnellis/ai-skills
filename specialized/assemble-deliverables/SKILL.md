@@ -1,6 +1,6 @@
 ---
 name: assemble-deliverables
-description: "Project-specific -- ohia1 only; do not apply to other projects unless explicitly asked. Assemble the ohia1 results package: results/ohia1_results_ddmmyyyy_HHMM.zip holding the current results document and two-file supplement of each experiment (wound age, wound dressing), the two metadata workbooks (ohia1_metadata.xlsx, ohia1_rda_metadata.xlsx), the register file the user names, and a generated MANIFEST.txt that explains the file naming and describes every file in one or two sentences. Covers the pre-flight checks (documents current against their stats runs, superseded outputs and annotated copies archived by move, metadata current against its inputs), running claude/build_results_package.py, verifying the manifest, archiving the previous package, and delivering the zip. Load when asked to zip, package, bundle or send the ohia1 results, deliverables or manuscript files, or to add files or a manifest to that package. Load ohia1-context first for the project rules."
+description: "Project-specific -- ohia1 only; do not apply to other projects unless explicitly asked. Assemble the ohia1 results package: results/ohia1_results_ddmmyyyy_HHMM.zip holding the current results document of the one paper (wound age, then wound dressing) and its two-file supplement, the two metadata workbooks (ohia1_metadata.xlsx, ohia1_rda_metadata.xlsx), the register file the user names, and a generated MANIFEST.txt that explains the file naming and describes every file in one or two sentences. Covers the pre-flight checks (documents current against their stats runs, superseded outputs and annotated copies archived by move, metadata current against its inputs), running claude/build_results_package.py, verifying the manifest, archiving the previous package, and delivering the zip. Load when asked to zip, package, bundle or send the ohia1 results, deliverables or manuscript files, or to add files or a manifest to that package. Load ohia1-context first for the project rules."
 ---
 
 # Assemble the ohia1 deliverables
@@ -17,23 +17,24 @@ manifest text. Edit that script, never a zip or a `MANIFEST.txt` by hand.
 
 | file | from | chosen by |
 |---|---|---|
-| `ohia1_results_wound_age_<stamp>.docx` | `results/` | latest stamped run (`latest()`) |
-| `ohia1_supplement_wound_age_<stamp>.docx` and `.xlsx` | `results/` | latest stamped run |
-| `ohia1_results_wound_dressing_<stamp>.docx` | `results/` | latest stamped run |
-| `ohia1_supplement_wound_dressing_<stamp>.docx` and `.xlsx` | `results/` | latest stamped run |
+| `ohia1_results_<stamp>.docx` | `results/` | latest stamped run (`latest()`) |
+| `ohia1_supplement_<stamp>.docx` and `.xlsx` | `results/` | latest stamped run; must share the document's stamp (asserted) |
 | `ohia1_metadata.xlsx`, `ohia1_rda_metadata.xlsx` | `data/` | fixed names (unstamped deliverables) |
-| the register, e.g. `standing_questions_20102026_BEM.docx` | project root | the `REGISTER` constant |
+| the register, by default the generated `standing_questions.docx` | project root | the `REGISTER` constant |
 | `MANIFEST.txt` | generated | written into the zip only |
 
 The glob is `_ddmmyyyy_HHMM.<ext>` exactly, so a `_BEM` copy can never be picked up as a
-document. The two experiments carry different stamps; that is expected.
+document. The pattern `ohia1_results_<stamp>.docx` cannot match the package zip
+(`ohia1_results_<stamp>.zip`) or a per-experiment document from before the one-paper layout.
 
 `MANIFEST.txt` has a header (package name, assembly time HST, one-paragraph scope), a
-**FILE NAMING** list (`ohia1_` prefix, `results_`/`supplement_`, the experiments, the run
-stamp, why the metadata is unstamped, `_BEM`, the package name), and a **FILES** list:
-one bullet per file, one or two sentences each. **Every count in it (table and figure
-ranges, sheet names, open items, release files, `[DRAFT]` fields, register questions and
-notes) is read from the packaged file at build time.** `describe()` raises on a file it has
+**FILE NAMING** list (`ohia1_` prefix, `results_`/`supplement_` of the one paper, the run
+stamp, why the metadata is unstamped, `_BEM` and `_claude`, the package name), and a **FILES** list:
+one bullet per file, one or two sentences each. **Every count in it (the paper title,
+section headings, table and figure ranges, sheet names, open items, release files, `[DRAFT]`
+fields, the register's issue date, its Part A count and Part B headings, its annotations) is
+read from the packaged file at build time.** `OHIA1_PACKAGE_DRYRUN=1` prints the manifest and
+writes nothing; use it before every build. `describe()` raises on a file it has
 no branch for; that is deliberate.
 
 ## 2. Procedure
@@ -44,18 +45,21 @@ Work from the project root. The `repl` kernel cannot see this folder: run all of
 1. **Rules.** Load `ohia1-context`. The standing-questions files (`standing_questions.docx`,
    the `_BEM` register the user names) are never modified or moved by this task.
 
-2. **Documents current against their stats runs.** A document takes the stamp of its stats
-   run (`run_date` in the value file). A mismatch means the generator was not rerun after
-   the stats script: rebuild that document first (`ohia1-context` reference `manuscript.md`,
-   section 6).
+2. **The document current against its stats runs.** The document takes the stamp of the
+   three stats runs behind it (`run_date` in `wa_values`, `wd_values` and
+   `shigo_cut_values`, which the generator asserts are one stamp). A mismatch means the
+   generator was not rerun after the stats scripts: rebuild it first (`ohia1-context`
+   reference `manuscript.md`, section 6), and remeasure the AI section if code changed.
 
 ```python
-import csv, glob, os, sys
+import csv, os, sys
 sys.path.insert(0, 'claude'); from results_doc_common import latest
-for xx, exp in (('wa', 'wound_age'), ('wd', 'wound_dressing')):
-    run = dict(csv.reader(open(latest(f'{xx}_values_*.csv', 'results/technical_results'))))['run_date']
-    doc = os.path.basename(latest(f'ohia1_results_{exp}_' + '[0-9]'*8 + '_' + '[0-9]'*4 + '.docx', 'results'))
-    print(exp, 'stats run', run, '| document', doc, '| OK' if run in doc else '| REBUILD THE DOCUMENT')
+TR = 'results/technical_results'
+runs = {x: dict(csv.reader(open(latest(f'{x}_values_*.csv', TR))))['run_date']
+        for x in ('wa', 'wd', 'shigo_cut')}
+doc = os.path.basename(latest('ohia1_results_' + '[0-9]'*8 + '_' + '[0-9]'*4 + '.docx', 'results'))
+ok = len(set(runs.values())) == 1 and next(iter(runs.values())) in doc
+print(runs, '| document', doc, '| OK' if ok else '| RERUN THE STATS SCRIPTS TOGETHER AND REBUILD')
 ```
 
 3. **Archive what a later run or issue replaced.** `results/` keeps only the latest of each
@@ -139,10 +143,15 @@ print('metadata current' if not newer else f'REBUILD the metadata workbooks; new
 ```
 
 5. **Register.** Set `REGISTER` in `claude/build_results_package.py` to the register file
-   the user names. If it is a new issue, update the register sentence in `describe()` too: the
-   issue date, and the Part B decisions, which are named in prose.
+   the user names (by default the generated `standing_questions.docx`; an annotated `_BEM`
+   copy works too). `describe()` reads the issue date, the Part A count, the Part B headings
+   and any annotations by BEM or a collaborator from the file, so a new issue needs no edit unless its
+   headings change ('Part A. Questions for the people who collected the data', a heading
+   starting 'Part B. ', and 'Where the rest of the questions live' are required).
 
-6. **Build.** `python3 claude/build_results_package.py`. It asserts the zip does not exist,
+6. **Build.** Dry-run first (`OHIA1_PACKAGE_DRYRUN=1 python3 claude/build_results_package.py`,
+   or set the variable in `os.environ` from python if the shell rejects the prefix), read the
+   manifest, then `python3 claude/build_results_package.py`. It asserts the zip does not exist,
    so a second build in the same minute stops. Wait for the minute to turn rather than
    working around it.
 
@@ -167,10 +176,20 @@ print('metadata current' if not newer else f'REBUILD the metadata workbooks; new
   from the file. Keep each description to one or two sentences.
 - A changed naming convention: edit the `NAMING` list. The convention itself lives in
   `ohia1-context` section 10; change it there first.
-- The wound dressing caption of Figure 5 is carried from 2025 with a colon (`Figure 5:`);
-  `captions()` accepts `.` or `:` for that reason.
+- `captions()` accepts `Figure N.` or `Figure N:`; the 2025 captions used a colon, and an
+  older document in the archive may still be packaged for comparison.
 
-## 4. Pitfalls met building the first package (20 October 2026)
+## 4. Pitfalls
+
+- **The one-paper layout (27 October 2026)** replaced two per-experiment documents with one;
+  the two-document builder is `archive/code_archive/build_results_package_20102026.py`, and
+  the per-experiment documents of 20 October are in `archive/results_archive/`.
+- **A renamed output is invisible to the step 3 detector**, which pairs files by stem: when
+  the figure files were renamed by number (30 October 2026), the 30 files under their old
+  names had no later version of the same name and were added to the move list by hand. After
+  any rename, list `results/` for stems the latest run did not write.
+
+Met building the first package (20 October 2026):
 
 - **Copying instead of moving** left superseded supplements in `results/`. The move cell's
   `os.replace` and the dry run's empty list are the check.

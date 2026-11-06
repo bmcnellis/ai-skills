@@ -1,6 +1,6 @@
 ---
 name: r-coding-conventions
-description: "General -- applies across all projects. House R style for BEM's projects: the two project shapes (R package for large portable work, single numbered directory for small interpretable work), the helper/plot/key function-file split, minimal dependencies with inline pkg:: qualification, base-R-leaning syntax with dplyr/ggplot2 as the only routine tidyverse, comment and function-design conventions, figure defaults and the ggplot2 traps that only appear on real data, and the R Markdown/knitr rules (compute-in-script, kable auto-printing, inline-R numbers and ordering, html_document limits) plus the cheap parse/scan checks that verify a document without rendering it. Load before writing or editing R code, or any .Rmd, in any of these projects."
+description: "General -- applies across all projects. House R style for BEM's projects: the three project shapes (Package: an R package for large portable work; Pipeline: a numbered single directory; Plain: a single directory without order prefixes, with a README.md run-order table and per-language subdirectories such as GEE/), the helper/plot/key function-file split, minimal dependencies with inline pkg:: qualification, base-R-leaning syntax with dplyr/ggplot2 as the only routine tidyverse, comment and function-design conventions, figure defaults and the ggplot2 traps that only appear on real data, and the R Markdown/knitr rules (compute-in-script, kable auto-printing, inline-R numbers and ordering, html_document limits) plus the cheap parse/scan checks that verify a document without rendering it. Load before writing or editing R code, or any .Rmd, in any of these projects."
 scope: general
 ---
 
@@ -9,14 +9,16 @@ scope: general
 > **Scope — general.** This skill is not tied to any one project. Apply it to any
 > project whose work falls under the description above.
 
-House style for R work. Written from the two reference codebases: **`NEON1`**
-(an R package — the portable, large-project shape) and **`RestoreDART`** (a
-single working directory — the small, interpretable shape). When a new project
-starts, pick one of the two shapes deliberately; don't drift into a third.
+House style for R work. Written from three reference codebases: **`NEON1`**
+(the **Package** shape — an R package for portable, large projects),
+**`RestoreDART`** (the **Pipeline** shape — a numbered single directory for small,
+interpretable R chains) and **`RAP1/analysis`** (the **Plain** shape — a single
+directory without order prefixes, for small projects that mix languages). When a
+new project starts, pick one of the three deliberately; don't drift into a fourth.
 
 ## Pick the project shape first
 
-**(1) R package** — for a large project that has to be portable, installable,
+**(1) Package** — for a large project that has to be portable, installable,
 or shared as a unit. `NEON1` is the reference.
 
 ```
@@ -40,8 +42,8 @@ header comment rather than their filename, and are named by verb:
 **fully qualified** (`NEON1::posterior_from_coda(...)`) so it is obvious which
 code is the project's own.
 
-**(2) Single directory** — for a project meant to stay small and readable end
-to end. `RestoreDART` is the reference.
+**(2) Pipeline** — a numbered single directory, for a project meant to stay small
+and readable end to end as one R chain. `RestoreDART` is the reference.
 
 ```
 project/
@@ -62,10 +64,56 @@ source('plot_functions.R', local = environment())
 source('helper_functions.R', local = environment())
 ```
 
-**Both shapes obey the same rule: functions live in function files, scripts
+**(3) Plain** — a single directory with **no order prefixes**, for a small project
+whose code spans more than one language, or whose steps do not form one strict
+chain. `RAP1/analysis` is the reference.
+
+```
+analysis/
+  README.md              # run-order table, what each file does, status, history
+  <project>_setup.R      # libraries, function files, directories, constants; sourced first
+  make_<thing>.R         # verb-named scripts, no numeric prefix
+  process_<thing>.R
+  helper_functions.R     # general-purpose functions, including key_*() lookups
+  plot_functions.R       # figure functions only
+  <project>_analysis.Rproj
+  GEE/                   # Google Earth Engine scripts (.gee / .js)
+  python/                # Python scripts, if any
+  <language>/            # one subdirectory per other language or platform
+```
+
+- **Names carry the verb, not the position.** The run order lives in a table in
+  `README.md` (step, file, what it does, status). Several files can share a step
+  (two GEE scripts at step 2), and a one-off preparation script gets `-` rather
+  than a number. Adding or renaming a script means updating that table.
+- **`README.md`, not `README.R`**, so it renders on a git host and in a file browser.
+- **Every R script starts with `source('<project>_setup.R')`** and runs with the
+  directory itself as the working directory (open the `.Rproj`). The setup script
+  asserts that (`stopifnot(file.exists('<project>_setup.R'))`), derives every path
+  from `root_dir <- normalizePath('..')`, sources the two function files, attaches
+  the few libraries, and owns the shared constants. Inputs come from `../data`,
+  outputs go to `../data/derived` and `../reports`.
+- **Non-R code goes in a subdirectory per language or platform** (`GEE/`, `python/`).
+  Those scripts cannot source the R setup, so a constant they share with R (a
+  conversion coefficient, an asset path) is written in both places, with a
+  comment naming where the other copy lives.
+- There is no `keys.R`: lookup tables are `key_*()` functions in
+  `helper_functions.R` (in RAP1, `key_DM()`).
+- A script that was moved or renamed keeps a header line naming its earlier path
+  (`# moved 5 Nov 2026 from exec/process_DM.R`), the same rule as "do not delete
+  the record".
+
+**Choosing.** Package when the code must install or travel as a unit, or carries
+enough functions to need documentation and a namespace. Pipeline when the work is
+one R chain ending in display-only documents, so the numeric prefix *is* the
+documentation. Plain when it is small but mixes languages or has branches that a
+single numbered chain would misrepresent.
+
+**All three shapes obey the same rule: functions live in function files, scripts
 orchestrate.** A script that defines a function is a script that should have
 put it in `helpers.R` / `helper_functions.R` / `plot_functions.R`. The split is
-by *kind*, not by topic: helpers, plotting, and (in the package shape) keys.
+by *kind*, not by topic: helpers, plotting, and (in the Package shape) keys;
+in Pipeline and Plain, key functions live in `helper_functions.R`.
 
 `keys.R` holds the lookup tables — domain names, age-range recodes, factor
 level orders — written as **functions** that return a `data.frame` or an
@@ -95,9 +143,9 @@ key_field_domain_id <- function(id) {
   at the top of the function and then bare `ggplot()`, `aes()`, `geom_*()`,
   `theme_bw()`, `element_text()` — a fully qualified ggplot stack is unreadable.
   Everything else stays qualified.
-- **Where to declare:** package shape → `Imports:` in DESCRIPTION with minimum
+- **Where to declare:** Package shape → `Imports:` in DESCRIPTION with minimum
   versions, plus `require(pkg)` at the top of any function body that needs an
-  attached package. Single-directory shape → `library(pkg)` once in the setup
+  attached package. Pipeline and Plain shapes → `library(pkg)` once in the setup
   script, with `require(pkg)` still inside the functions so they work standalone.
   In a knitr context, attach in a message-suppressed setup chunk so the later
   `require()` calls are silent no-ops — otherwise "Loading required package:"
@@ -229,7 +277,7 @@ agree with.
 
 Section banners: `### Libraries` / `### Data import` / `### Directories` in
 scripts, or `# ---- constants ----------------------------------------------`
-in the single-directory shape.
+in the Pipeline and Plain shapes.
 
 **Do not delete the record.** Commented-out parameter rounds, superseded
 thresholds, and the notes on why a species or covariate was dropped stay in the
@@ -294,9 +342,10 @@ calling a new figure function done:
 ## R Markdown and knitr
 
 **Compute in a script, display in the document.** A `.Rmd` should not set a
-threshold or derive a quantity it shows — the numbered setup script owns that
-(see the single-directory shape above). Source it from the document's setup
-chunk as `source('0_<name>_setup.R', local = knitr::knit_global())`. That
+threshold or derive a quantity it shows — the setup script owns that (see the
+Pipeline and Plain shapes above). Source it from the document's setup chunk as
+`source('0_<name>_setup.R', local = knitr::knit_global())` (Plain:
+`'<project>_setup.R'`). That
 argument is load-bearing, not style: anything that later looks objects up with
 `ls(envir = parent.frame())` or `get()` is, from inside a chunk, looking at the
 knit environment, and the default `local = TRUE` would hide the script's
@@ -421,7 +470,7 @@ a short phrase.
 
 ## Checklist before handing R code back
 
-1. Shape matches the project (package vs single directory); functions are in a
+1. Shape matches the project (Package, Pipeline or Plain); functions are in a
    function file, not the script.
 2. Every non-ggplot2 call from another package is `pkg::`-qualified.
 3. No new dependency introduced without asking.

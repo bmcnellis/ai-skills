@@ -1,5 +1,7 @@
 .DS_Store
 *.swp
 __pycache__/
-project-context/
+project-context/*
+!project-context/neon-context/
+!project-context/ai-skills-context/
 scratch/

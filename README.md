@@ -17,7 +17,7 @@ The repository folders are an organizational choice and do not map one-to-one on
 
 - `general/` holds general-scope skills.
 - `specialized/` holds task-oriented skills.
-- `project-context/` holds project-specific context skills. This folder is listed in `.gitignore`, so its contents stay on disk but are not tracked by git.
+- `project-context/` holds project-specific context skills. Most stay on disk untracked; the ones listed as tracked below are published.
 
 ## Current contents
 
@@ -32,17 +32,24 @@ The repository folders are an organizational choice and do not map one-to-one on
 - `make-metadata-file-usgs`
 - `manuscript-prose-voice`
 
-`project-context/` (untracked):
+`project-context/`, tracked:
+- `ai-skills-context`
+- `neon-context`
+
+`project-context/`, untracked (kept on disk only):
 - `aidapt-context`
 - `ecohydro2-context`
-- `neon-context`
+- `neon3-context`
 - `ohia1-context`
+- `rap1-context`
+- `rdart-context`
 - `restoredart-context`
 
 ## Version control
 
 - The repository is a git repository on branch `main`.
-- `.gitignore` excludes `.DS_Store`, `*.swp`, `__pycache__/`, the entire `project-context/` folder, and `scratch/`.
+- `.gitignore` excludes `.DS_Store`, `*.swp`, `__pycache__/`, and `scratch/`.
+- In `project-context/`, everything is ignored (`project-context/*`) except the folders re-included with `!` lines: `ai-skills-context`, `neon-context`. To track another context skill, sanitize it and add its own `!project-context/<name>/` line.
 - `scratch/` holds stray and temporary files, including scan reports and the placeholder map. It is never committed.
 
 ## Public copies differ from the live skills
@@ -51,6 +58,7 @@ This repository is public, and its files are sanitized copies of the live skills
 
 - Absolute local paths are replaced with placeholders, such as `<data-root>/` for the local data drive.
 - App-internal identifiers are removed.
+- Unpublished manuscript details, such as co-author lists and target journals, are removed.
 - Spending figures and per-project usage numbers are removed, or restated as ratios and shares.
 
 The live skills keep their real paths, so do not copy files from this repository back over them. The `sanitize-public-git` skill holds the procedure and helpers used for this.
